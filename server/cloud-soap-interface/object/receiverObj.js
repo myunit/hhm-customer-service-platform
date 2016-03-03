@@ -35,3 +35,20 @@ exports.addReceiverAddressXML = function (obj) {
 
   return xml(xmlObj, true);
 };
+
+exports.getReceiverAddressXML = function (obj) {
+  var xmlObj = [{
+    ReceiverForGet: [
+      {
+        _attr: {
+          xmlns: 'http://tempuri.org/'
+        }
+      },
+      {
+        uId: obj.userId
+      }
+    ]
+  }];
+
+  return xml(xmlObj, true);
+};

@@ -40,5 +40,9 @@
   "MYToken": {
     "dataSource": "redisDS",
     "public": false
+  },
+  "Address": {
+    "dataSource": null,
+    "public": true
   }
 }

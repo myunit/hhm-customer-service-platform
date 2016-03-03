@@ -25,3 +25,16 @@ ReceiverIFS.prototype.addReceiverAddress = function (obj, callback) {
     }
   });
 };
+
+ReceiverIFS.prototype.getReceiverAddress = function (obj, callback) {
+  var Receiver = this.DS.models.Receiver;
+  var xml = receiverObj.getReceiverAddressXML(obj);
+  Receiver.ReceiverForGet(xml, function (err, response) {
+    try {
+      callback(err, JSON.parse(response.ReceiverForGetResult));
+    } catch (e) {
+      console.error('ReceiverIFS getReceiverAddress Exception: ' + e);
+      callback(err, {IsSuccess: false, ErrorDescription:'服务异常'});
+    }
+  });
+};
