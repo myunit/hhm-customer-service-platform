@@ -13,27 +13,66 @@ var ReceiverIFS = function (app) {
 util.inherits(ReceiverIFS, Object);
 exports = module.exports = ReceiverIFS;
 
-ReceiverIFS.prototype.addReceiverAddress = function (obj, callback) {
+ReceiverIFS.prototype.addReceiver = function (obj, callback) {
   var Receiver = this.DS.models.Receiver;
-  var xml = receiverObj.addReceiverAddressXML(obj);
+  var xml = receiverObj.addReceiverXML(obj);
   Receiver.ReceiverForInsertAndModify(xml, function (err, response) {
     try {
       callback(err, JSON.parse(response.ReceiverForInsertAndModifyResult));
     } catch (e) {
-      console.error('ReceiverIFS addReceiverAddress Exception: ' + e);
+      console.error('ReceiverIFS addReceiver Exception: ' + e);
       callback(err, {IsSuccess: false, ErrorDescription:'服务异常'});
     }
   });
 };
 
-ReceiverIFS.prototype.getReceiverAddress = function (obj, callback) {
+ReceiverIFS.prototype.modifyReceiver = function (obj, callback) {
   var Receiver = this.DS.models.Receiver;
-  var xml = receiverObj.getReceiverAddressXML(obj);
+  var xml = receiverObj.modifyReceiverXML(obj);
+  Receiver.ReceiverForInsertAndModify(xml, function (err, response) {
+    try {
+      callback(err, JSON.parse(response.ReceiverForInsertAndModifyResult));
+    } catch (e) {
+      console.error('ReceiverIFS modifyReceiver Exception: ' + e);
+      callback(err, {IsSuccess: false, ErrorDescription:'服务异常'});
+    }
+  });
+};
+
+ReceiverIFS.prototype.getReceiver = function (obj, callback) {
+  var Receiver = this.DS.models.Receiver;
+  var xml = receiverObj.getReceiverXML(obj);
   Receiver.ReceiverForGet(xml, function (err, response) {
     try {
       callback(err, JSON.parse(response.ReceiverForGetResult));
     } catch (e) {
-      console.error('ReceiverIFS getReceiverAddress Exception: ' + e);
+      console.error('ReceiverIFS getReceiver Exception: ' + e);
+      callback(err, {IsSuccess: false, ErrorDescription:'服务异常'});
+    }
+  });
+};
+
+ReceiverIFS.prototype.delReceiver = function (obj, callback) {
+  var Receiver = this.DS.models.Receiver;
+  var xml = receiverObj.delReceiverXML(obj);
+  Receiver.ReceiverForDelete(xml, function (err, response) {
+    try {
+      callback(err, JSON.parse(response.ReceiverForDeleteResult));
+    } catch (e) {
+      console.error('ReceiverIFS delReceiver Exception: ' + e);
+      callback(err, {IsSuccess: false, ErrorDescription:'服务异常'});
+    }
+  });
+};
+
+ReceiverIFS.prototype.setDefaultReceiver = function (obj, callback) {
+  var Receiver = this.DS.models.Receiver;
+  var xml = receiverObj.setDefaultReceiverXML(obj);
+  Receiver.ReceiverForSetDefault(xml, function (err, response) {
+    try {
+      callback(err, JSON.parse(response.ReceiverForSetDefaultResult));
+    } catch (e) {
+      console.error('ReceiverIFS setDefaultReceiver Exception: ' + e);
       callback(err, {IsSuccess: false, ErrorDescription:'服务异常'});
     }
   });

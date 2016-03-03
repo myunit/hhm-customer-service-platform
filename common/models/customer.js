@@ -36,15 +36,15 @@ module.exports = function(Customer) {
             var receiver = data.receiver;
             receiver.userId = data.userId;
             receiver.isDefault = true;
-            receiverIFS.addReceiverAddress(receiver, function (err, res) {
+            receiverIFS.addReceiver(receiver, function (err, res) {
               if (err) {
-                console.error('addReceiverAddress err: ' + err);
+                console.error('addReceiver err: ' + err);
                 cb({status:0, msg: '操作异常'});
                 return;
               }
 
               if (!res.IsSuccess) {
-                console.error('addReceiverAddress result err: ' + res.ErrorDescription);
+                console.error('addReceiver result err: ' + res.ErrorDescription);
                 cb({status:0, msg: '操作失败'});
               } else {
                 cb(null, {status: 1, msg: '操作成功'});

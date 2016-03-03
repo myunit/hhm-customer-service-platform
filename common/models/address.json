@@ -19,21 +19,21 @@
       "principalType": "ROLE",
       "principalId": "$authenticated",
       "permission": "ALLOW",
-      "property": "getReceiverAddress"
+      "property": "getReceiver"
     },
     {
       "accessType": "EXECUTE",
       "principalType": "ROLE",
       "principalId": "$authenticated",
       "permission": "ALLOW",
-      "property": "delReceiverAddress"
+      "property": "delReceiver"
     },
     {
       "accessType": "EXECUTE",
       "principalType": "ROLE",
       "principalId": "$authenticated",
       "permission": "ALLOW",
-      "property": "setDefaultReceiverAddress"
+      "property": "setDefaultReceiver"
     },
     {
       "accessType": "EXECUTE",
@@ -47,14 +47,14 @@
       "principalType": "ROLE",
       "principalId": "$authenticated",
       "permission": "ALLOW",
-      "property": "addReceiverAddress"
+      "property": "addReceiver"
     },
     {
       "accessType": "EXECUTE",
       "principalType": "ROLE",
       "principalId": "$authenticated",
       "permission": "ALLOW",
-      "property": "modifyReceiverAddress"
+      "property": "modifyReceiver"
     }
   ],
   "methods": {}
