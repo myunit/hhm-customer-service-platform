@@ -51,3 +51,42 @@ CustomerIFS.prototype.getAllProvinces = function (callback) {
     }
   });
 };
+
+CustomerIFS.prototype.getAllCity = function (obj, callback) {
+  var Customer = this.DS.models.Customer;
+  var xml = customerObj.getAllCityXML(obj);
+  Customer.GetAllCitiesByProvince(xml, function (err, response) {
+    try {
+      callback(err, JSON.parse(response.GetAllCitiesByProvinceResult));
+    } catch (e) {
+      console.error('CustomerIFS getAllCity Exception: ' + e);
+      callback(err, {IsSuccess: false, ErrorInfo:'服务异常'});
+    }
+  });
+};
+
+CustomerIFS.prototype.getAllDistricts = function (obj, callback) {
+  var Customer = this.DS.models.Customer;
+  var xml = customerObj.getAllDistrictsXML(obj);
+  Customer.GetAllDistrictsByCity(xml, function (err, response) {
+    try {
+      callback(err, JSON.parse(response.GetAllDistrictsByCityResult));
+    } catch (e) {
+      console.error('CustomerIFS getAllDistricts Exception: ' + e);
+      callback(err, {IsSuccess: false, ErrorInfo:'服务异常'});
+    }
+  });
+};
+
+CustomerIFS.prototype.getAllStreet = function (obj, callback) {
+  var Customer = this.DS.models.Customer;
+  var xml = customerObj.getAllStreetXML(obj);
+  Customer.GetAllStreetsByDistrict(xml, function (err, response) {
+    try {
+      callback(err, JSON.parse(response.GetAllStreetsByDistrictResult));
+    } catch (e) {
+      console.error('CustomerIFS getAllStreet Exception: ' + e);
+      callback(err, {IsSuccess: false, ErrorInfo:'服务异常'});
+    }
+  });
+};

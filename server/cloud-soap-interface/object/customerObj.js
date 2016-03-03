@@ -75,3 +75,54 @@ exports.getAllProvincesXML = function () {
 
   return xml(xmlObj, true);
 };
+
+exports.getAllCityXML = function (obj) {
+  var xmlObj = [{
+    GetAllCitiesByProvince: [
+      {
+        _attr: {
+          xmlns: 'http://tempuri.org/'
+        }
+      },
+      {
+        provinceSysNo: obj.provinceId
+      }
+    ]
+  }];
+
+  return xml(xmlObj, true);
+};
+
+exports.getAllDistrictsXML = function (obj) {
+  var xmlObj = [{
+    GetAllDistrictsByCity: [
+      {
+        _attr: {
+          xmlns: 'http://tempuri.org/'
+        }
+      },
+      {
+        citySysNo: obj.cityId
+      }
+    ]
+  }];
+
+  return xml(xmlObj, true);
+};
+
+exports.getAllStreetXML = function (obj) {
+  var xmlObj = [{
+    GetAllStreetsByDistrict: [
+      {
+        _attr: {
+          xmlns: 'http://tempuri.org/'
+        }
+      },
+      {
+        districtSysNo: obj.districtId
+      }
+    ]
+  }];
+
+  return xml(xmlObj, true);
+};

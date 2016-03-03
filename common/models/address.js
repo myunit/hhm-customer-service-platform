@@ -233,5 +233,116 @@ module.exports = function (Address) {
       }
     );
 
+    //获取城市
+    Address.getAllCity = function (data, cb) {
+      customerIFS.getAllCity(data, function (err, res) {
+        if (err) {
+          console.log('getAllCity err: ' + err);
+          cb(null, {status: 0, msg: '操作异常'});
+          return;
+        }
+
+        if (!res.IsSuccess) {
+          console.error('getAllCity result err: ' + res.ErrorInfo);
+          cb(null, {status: 0, msg: res.ErrorInfo});
+        } else {
+          cb(null, {status: 1, city: JSON.parse(res.ResultStr), msg: ''});
+        }
+      });
+    };
+
+    Address.remoteMethod(
+      'getAllCity',
+      {
+        description: [
+          '获取城市.返回结果-status:操作结果 0 失败 1 成功, city:城市信息, msg:附带信息'
+        ],
+        accepts: [
+          {
+            arg: 'data', type: 'object', required: true, http: {source: 'body'},
+            description: [
+              '获取城市(JSON String) {"provinceId":int}'
+            ]
+          }
+        ],
+        returns: {arg: 'repData', type: 'string'},
+        http: {path: '/get-all-city', verb: 'post'}
+      }
+    );
+
+    //获取行政区
+    Address.getAllDistricts = function (data, cb) {
+      customerIFS.getAllDistricts(data, function (err, res) {
+        if (err) {
+          console.log('getAllDistricts err: ' + err);
+          cb(null, {status: 0, msg: '操作异常'});
+          return;
+        }
+
+        if (!res.IsSuccess) {
+          console.error('getAllDistricts result err: ' + res.ErrorInfo);
+          cb(null, {status: 0, msg: res.ErrorInfo});
+        } else {
+          cb(null, {status: 1, district: JSON.parse(res.ResultStr), msg: ''});
+        }
+      });
+    };
+
+    Address.remoteMethod(
+      'getAllDistricts',
+      {
+        description: [
+          '获取行政区.返回结果-status:操作结果 0 失败 1 成功, district:区信息, msg:附带信息'
+        ],
+        accepts: [
+          {
+            arg: 'data', type: 'object', required: true, http: {source: 'body'},
+            description: [
+              '获取行政区(JSON String) {"cityId":int}'
+            ]
+          }
+        ],
+        returns: {arg: 'repData', type: 'string'},
+        http: {path: '/get-all-district', verb: 'post'}
+      }
+    );
+
+    //获取街道
+    Address.getAllStreet = function (data, cb) {
+      customerIFS.getAllStreet(data, function (err, res) {
+        if (err) {
+          console.log('getAllStreet err: ' + err);
+          cb(null, {status: 0, msg: '操作异常'});
+          return;
+        }
+
+        if (!res.IsSuccess) {
+          console.error('getAllStreet result err: ' + res.ErrorInfo);
+          cb(null, {status: 0, msg: res.ErrorInfo});
+        } else {
+          cb(null, {status: 1, street: JSON.parse(res.ResultStr), msg: ''});
+        }
+      });
+    };
+
+    Address.remoteMethod(
+      'getAllStreet',
+      {
+        description: [
+          '获取行政区.返回结果-status:操作结果 0 失败 1 成功, street:街道信息, msg:附带信息'
+        ],
+        accepts: [
+          {
+            arg: 'data', type: 'object', required: true, http: {source: 'body'},
+            description: [
+              '获取行政区(JSON String) {"districtId":int}'
+            ]
+          }
+        ],
+        returns: {arg: 'repData', type: 'string'},
+        http: {path: '/get-all-street', verb: 'post'}
+      }
+    );
+
   });
 };

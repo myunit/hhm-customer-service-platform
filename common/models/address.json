@@ -61,6 +61,24 @@
       "principalId": "$everyone",
       "permission": "ALLOW",
       "property": "getAllProvinces"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "getAllCity"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "getAllDistricts"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "getAllStreet"
     }
   ],
   "methods": {}
