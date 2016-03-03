@@ -1,0 +1,19 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "redisDS": {
+    "host": "127.0.0.1",
+    "port": 6379,
+    "database": "1",
+    "name": "redisDS",
+    "connector": "redis"
+  },
+  "CustomerSoap": {
+    "url": "http://10.10.5.130:7008/PC_API/CustomerService.svc",
+    "name": "CustomerSoap",
+    "connector": "soap",
+    "wsdl": "http://10.10.5.130:7008/PC_API/CustomerService.svc?WSDL"
+  }
+}
