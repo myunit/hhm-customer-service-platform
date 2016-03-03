@@ -122,5 +122,45 @@ module.exports = function(Customer) {
       }
     );
 
+    //设置店铺信息
+    Customer.setStoreInfo = function (data, cb) {
+      if (!data.userId) {
+        cb(null, {status: 0, msg: '参数错误'});
+        return;
+      }
+
+      customerIFS.saveStoreInfo(data, function (err, res) {
+        if (err) {
+          console.error('setStoreInfo err: ' + err);
+          cb(null, {status: 0, msg: '操作异常'});
+          return;
+        }
+
+        if (!res.IsSuccess) {
+          console.error('setStoreInfo result err: ' + res.ErrorInfo);
+          cb(null, {status: 0, msg: res.ErrorInfo});
+        } else {
+          cb(null, {status: 1, msg: '保存成功'});
+        }
+      });
+    };
+
+    Customer.remoteMethod(
+      'setStoreInfo',
+      {
+        description: ['设置店铺信息.返回结果-status:操作结果 0 成功 -1 失败, store:店铺信息, msg:附带信息'],
+        accepts: [
+          {
+            arg: 'data', type: 'object', required: true, http: {source: 'body'},
+            description: [
+              '设置店铺信息 {"userId":int, "storeName":"string"}'
+            ]
+          }
+        ],
+        returns: {arg: 'repData', type: 'string'},
+        http: {path: '/set-store-info', verb: 'post'}
+      }
+    );
+
   });
 };
