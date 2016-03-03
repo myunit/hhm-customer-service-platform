@@ -44,3 +44,20 @@ exports.saveStoreInfoXML = function (obj) {
 
   return xml(xmlObj, true);
 };
+
+exports.getStoreInfoXML = function (obj) {
+  var xmlObj = [{
+    GetCustomerStoreByCustomerSysNo: [
+      {
+        _attr: {
+          xmlns: 'http://tempuri.org/'
+        }
+      },
+      {
+        customerSysNo: obj.userId
+      }
+    ]
+  }];
+
+  return xml(xmlObj, true);
+};

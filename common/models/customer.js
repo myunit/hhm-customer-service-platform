@@ -82,5 +82,45 @@ module.exports = function(Customer) {
       }
     );
 
+    //获取店铺信息
+    Customer.getStoreInfo = function (data, cb) {
+      if (!data.userId) {
+        cb(null, {status: 0, msg: '参数错误'});
+        return;
+      }
+
+      customerIFS.getStoreInfo(data, function (err, res) {
+        if (err) {
+          console.error('getStoreInfo err: ' + err);
+          cb(null, {status: 0, msg: '操作异常'});
+          return;
+        }
+
+        if (!res.IsSuccess) {
+          console.error('getStoreInfo result err: ' + res.ErrorInfo);
+          cb(null, {status: 0, msg: res.ErrorInfo});
+        } else {
+          cb(null, {status: 1, store: JSON.parse(res.ResultStr), msg: ''});
+        }
+      });
+    };
+
+    Customer.remoteMethod(
+      'getStoreInfo',
+      {
+        description: ['获取店铺信息.返回结果-status:操作结果 0 成功 -1 失败, store:店铺信息, msg:附带信息'],
+        accepts: [
+          {
+            arg: 'data', type: 'object', required: true, http: {source: 'body'},
+            description: [
+              '获取店铺信息 {"userId":int}'
+            ]
+          }
+        ],
+        returns: {arg: 'repData', type: 'string'},
+        http: {path: '/get-store-info', verb: 'post'}
+      }
+    );
+
   });
 };

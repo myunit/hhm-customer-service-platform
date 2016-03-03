@@ -25,3 +25,16 @@ CustomerIFS.prototype.saveStoreInfo = function (data, callback) {
     }
   });
 };
+
+CustomerIFS.prototype.getStoreInfo = function (data, callback) {
+  var Customer = this.DS.models.Customer;
+  var xml = customerObj.getStoreInfoXML(data);
+  Customer.GetCustomerStoreByCustomerSysNo(xml, function (err, response) {
+    try {
+      callback(err, JSON.parse(response.GetCustomerStoreByCustomerSysNoResult));
+    } catch (e) {
+      console.error('CustomerIFS getStoreInfo Exception: ' + e);
+      callback(err, {IsSuccess: false, ErrorInfo:'服务异常'});
+    }
+  });
+};
