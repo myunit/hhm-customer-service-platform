@@ -38,3 +38,16 @@ CustomerIFS.prototype.getStoreInfo = function (data, callback) {
     }
   });
 };
+
+CustomerIFS.prototype.getAllProvinces = function (callback) {
+  var Customer = this.DS.models.Customer;
+  var xml = customerObj.getAllProvincesXML();
+  Customer.GetAllProvinces(xml, function (err, response) {
+    try {
+      callback(err, JSON.parse(response.GetAllProvincesResult));
+    } catch (e) {
+      console.error('CustomerIFS getAllProvinces Exception: ' + e);
+      callback(err, {IsSuccess: false, ErrorInfo:'服务异常'});
+    }
+  });
+};

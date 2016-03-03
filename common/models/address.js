@@ -5,10 +5,12 @@
  */
 var loopback = require('loopback');
 var ReceiverIFS = require('../../server/cloud-soap-interface/receiver-ifs');
+var CustomerIFS = require('../../server/cloud-soap-interface/customer-ifs');
 
 module.exports = function (Address) {
   Address.getApp(function (err, app) {
 
+    var customerIFS = new CustomerIFS(app);
     var receiverIFS = new ReceiverIFS(app);
 
     //获取用户收货地址
@@ -192,6 +194,42 @@ module.exports = function (Address) {
         ],
         returns: {arg: 'repData', type: 'string'},
         http: {path: '/modify-receiver', verb: 'post'}
+      }
+    );
+
+    //获取省份
+    Address.getAllProvinces = function (data, cb) {
+      customerIFS.getAllProvinces(function (err, res) {
+        if (err) {
+          console.log('getAllProvinces err: ' + err);
+          cb(null, {status: 0, msg: '操作异常'});
+          return;
+        }
+
+        if (!res.IsSuccess) {
+          console.error('getAllProvinces result err: ' + res.ErrorInfo);
+          cb(null, {status: 0, msg: res.ErrorInfo});
+        } else {
+          cb(null, {status: 1, provinces: JSON.parse(res.ResultStr), msg: ''});
+        }
+      });
+    };
+
+    Address.remoteMethod(
+      'getAllProvinces',
+      {
+        description: [
+          '获取省份.返回结果-status:操作结果 0 失败 1 成功, provinces:省份信息, msg:附带信息'
+        ],
+        accepts: [
+          {
+            arg: 'data', type: 'object', http: {source: 'body'},
+            description: [
+            ]
+          }
+        ],
+        returns: {arg: 'repData', type: 'string'},
+        http: {path: '/get-all-provinces', verb: 'post'}
       }
     );
 

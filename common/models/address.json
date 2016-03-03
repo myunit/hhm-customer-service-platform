@@ -55,6 +55,12 @@
       "principalId": "$authenticated",
       "permission": "ALLOW",
       "property": "modifyReceiver"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "getAllProvinces"
     }
   ],
   "methods": {}

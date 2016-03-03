@@ -61,3 +61,17 @@ exports.getStoreInfoXML = function (obj) {
 
   return xml(xmlObj, true);
 };
+
+exports.getAllProvincesXML = function () {
+  var xmlObj = [{
+    GetAllProvinces: [
+      {
+        _attr: {
+          xmlns: 'http://tempuri.org/'
+        }
+      }
+    ]
+  }];
+
+  return xml(xmlObj, true);
+};

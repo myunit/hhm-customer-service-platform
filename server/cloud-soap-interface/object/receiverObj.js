@@ -123,3 +123,31 @@ exports.setDefaultReceiverXML = function (obj) {
 
   return xml(xmlObj, true);
 };
+
+exports.getPCDListXML = function (type, id) {
+  if (type === 1) {
+    type = 'city';
+  } else if (type === 2) {
+    type = 'district';
+  } else {
+    type = '';
+  }
+
+  var xmlObj = [{
+    QueryPCDList: [
+      {
+        _attr: {
+          xmlns: 'http://tempuri.org/'
+        }
+      },
+      {
+        type: type
+      },
+      {
+        id: id
+      }
+    ]
+  }];
+
+  return xml(xmlObj, true);
+};
