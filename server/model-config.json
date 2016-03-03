@@ -44,5 +44,9 @@
   "Address": {
     "dataSource": null,
     "public": true
+  },
+  "Favorite": {
+    "dataSource": null,
+    "public": true
   }
 }

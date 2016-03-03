@@ -13,4 +13,14 @@ module.exports = function (app) {
     console.log('Receiver interface is connected');
     app.datasources.ReceiverSoap.createModel('Receiver', {});
   });
+
+  app.datasources.ProductSoap.once('connected', function () {
+    console.log('Product interface is connected');
+    app.datasources.ProductSoap.createModel('Product', {});
+  });
+
+  app.datasources.FavoriteSoap.once('connected', function () {
+    console.log('Favorite interface is connected');
+    app.datasources.FavoriteSoap.createModel('Favorite', {});
+  });
 };
