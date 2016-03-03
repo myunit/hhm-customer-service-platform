@@ -1,6 +1,7 @@
 var loopback = require('loopback');
 var async = require('async');
 var CustomerIFS = require('../../server/cloud-soap-interface/customer-ifs');
+var ReceiverIFS = require('../../server/cloud-soap-interface/receiver-ifs');
 
 module.exports = function(Customer) {
   Customer.getApp(function (err, app) {
@@ -9,6 +10,7 @@ module.exports = function(Customer) {
     }
     var app_self = app;
     var customerIFS = new CustomerIFS(app);
+    var receiverIFS = new ReceiverIFS(app);
 
     //完善用户信息
     Customer.perfectCustomerInfo = function (data, perfectCb) {
@@ -22,31 +24,33 @@ module.exports = function(Customer) {
                 return;
               }
 
-              console.log('res: ' + JSON.stringify(res));
               if (!res.IsSuccess) {
                 console.error('perfectCustomerInfo result err: ' + res.ErrorInfo);
                 cb({status: 0, msg: '操作失败'});
               } else {
-                cb(null, {status: 1, msg: '操作成功'});
+                cb(null);
               }
             });
-          }/*,
+          },
           function (cb) {
-            customerIFS.login(data, function (err, res) {
+            var receiver = data.receiver;
+            receiver.userId = data.userId;
+            receiver.isDefault = true;
+            receiverIFS.addReceiverAddress(receiver, function (err, res) {
               if (err) {
-                console.error('login err: ' + err);
+                console.error('addReceiverAddress err: ' + err);
                 cb({status:0, msg: '操作异常'});
                 return;
               }
 
               if (!res.IsSuccess) {
-                console.error('login result err: ' + res.ErrorDescription);
-                cb({status:0, msg: res.ErrorDescription});
+                console.error('addReceiverAddress result err: ' + res.ErrorDescription);
+                cb({status:0, msg: '操作失败'});
               } else {
-                cb(null, {status: 1, customer: res.Customer, msg: ''});
+                cb(null, {status: 1, msg: '操作成功'});
               }
             });
-          }*/
+          }
         ],
         function (err, msg) {
           if (err) {
@@ -66,8 +70,10 @@ module.exports = function(Customer) {
           {
             arg: 'data', type: 'object', required: true, http: {source: 'body'},
             description: [
-              '获取验证码信息 {"userId":int, "storeName":"string"}, ',
-              'userId:用户编号, storeName:店铺名字'
+              '完善用户信息 {"userId":int, "storeName":"string", "receiver":{"name":"string", "phone":"string", ',
+              '"provinceId":int, "province":"string", "cityId":int, "city":"string", "districtId":int, "district":"string", ',
+              '"address":"string"}}, ',
+              'userId:用户编号, storeName:店铺名字, receiver:收货地址'
             ]
           }
         ],

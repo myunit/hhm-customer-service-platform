@@ -20,13 +20,6 @@
       "principalId": "$authenticated",
       "permission": "ALLOW",
       "property": "perfectCustomerInfo"
-    },
-    {
-      "accessType": "EXECUTE",
-      "principalType": "ROLE",
-      "principalId": "$authenticated",
-      "permission": "ALLOW",
-      "property": "addAddress"
     }
   ],
   "methods": {}
