@@ -1,5 +1,5 @@
 {
-  "name": "myun-cloud-login-service",
+  "name": "myun-cloud-customer-service",
   "version": "1.0.0",
   "main": "server/server.js",
   "scripts": {
@@ -27,5 +27,5 @@
     "type": "",
     "url": ""
   },
-  "description": "myun-cloud-login-service"
+  "description": "myun-cloud-customer-service"
 }

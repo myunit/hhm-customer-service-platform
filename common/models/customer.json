@@ -15,16 +15,18 @@
       "permission": "DENY"
     },
     {
+      "accessType": "EXECUTE",
       "principalType": "ROLE",
-      "principalId": "$everyone",
+      "principalId": "$authenticated",
       "permission": "ALLOW",
-      "property": "getCaptcha"
+      "property": "perfectCustomerInfo"
     },
     {
+      "accessType": "EXECUTE",
       "principalType": "ROLE",
-      "principalId": "$everyone",
+      "principalId": "$authenticated",
       "permission": "ALLOW",
-      "property": "register"
+      "property": "addAddress"
     }
   ],
   "methods": {}

@@ -5,65 +5,39 @@
  */
 var xml = require('xml');
 
-exports.getCaptchaXML = function (obj) {
+exports.saveStoreInfoXML = function (obj) {
+  var storeJson = {};
+  storeJson.CustomerSysNo = obj.userId;
+  storeJson.ProductMaterial = '';
+  storeJson.PurchaseAmountPerMonth = {Description:'', SysNo:0};
+  storeJson.PurchaseChannel = '';
+  storeJson.PurchaseFrequency = '';
+  storeJson.PurchasePolicy = '';
+  storeJson.SellingPrice = {Description:'', SysNo:0};
+  storeJson.StoreArea = '';
+  storeJson.StoreCategory = {Name:'', SysNo:0};
+  storeJson.StoreDetailCategory = '';
+  storeJson.StoreName = obj.storeName;
+  storeJson.SysNo = 0;
+  storeJson.StoreContactAddress = '';
+  storeJson.StoreContactName = '';
+  storeJson.StoreContactPhoneNo = '';
+  storeJson.StorePCDCode = '';
+  storeJson.StorePCDDescription = '';
+  storeJson.StorePicture = '';
+
   var xmlObj = [{
-    SendVerificationCode: [
+    SaveCustomerStore: [
       {
         _attr: {
           xmlns: 'http://tempuri.org/'
         }
       },
       {
-        sendUserId: '496'
+        customerSysNo: obj.userId
       },
       {
-        sendPassword: '123'
-      },
-      {
-        sendType: obj.type
-      },
-      {
-        toMobile: obj.phone
-      }
-    ]
-  }];
-
-  return xml(xmlObj, true);
-};
-
-exports.registerXML = function (obj) {
-  var sex = 'man';
-  if (obj.sex === 2) {
-    sex = 'woman'
-  }
-
-  var xmlObj = [{
-    RegisterByVerCode: [
-      {
-        _attr: {
-          xmlns: 'http://tempuri.org/'
-        }
-      },
-      {
-        cellPhoneNo: obj.phone
-      },
-      {
-        passWord: obj.password
-      },
-      {
-        ename: ''
-      },
-      {
-        memberName: ''
-      },
-      {
-        sex: sex
-      },
-      {
-        userLink: ''
-      },
-      {
-        vercode: obj.code
+        storeJson: JSON.stringify(storeJson)
       }
     ]
   }];
