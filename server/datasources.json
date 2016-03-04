@@ -1,0 +1,37 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "redisDS": {
+    "host": "127.0.0.1",
+    "port": 6379,
+    "database": "1",
+    "name": "redisDS",
+    "connector": "redis"
+  },
+  "CustomerSoap": {
+    "url": "http://122.225.60.230:7008/PC_API/CustomerService.svc",
+    "name": "CustomerSoap",
+    "connector": "soap",
+    "wsdl": "http://122.225.60.230:7008/PC_API/CustomerService.svc?WSDL"
+  },
+  "ReceiverSoap": {
+    "url": "http://122.225.60.230:7008/PC_API/ReceiverService.svc",
+    "name": "ReceiverSoap",
+    "connector": "soap",
+    "wsdl": "http://122.225.60.230:7008/PC_API/ReceiverService.svc?WSDL"
+  },
+  "ProductSoap": {
+    "url": "http://122.225.60.230:7008/PC_API/ItemService.svc",
+    "name": "ProductSoap",
+    "connector": "soap",
+    "wsdl": "http://122.225.60.230:7008/PC_API/ItemService.svc?WSDL"
+  },
+  "FavoriteSoap": {
+    "url": "http://122.225.60.230:7008/PC_API/FavoriteService.svc",
+    "name": "FavoriteSoap",
+    "connector": "soap",
+    "wsdl": "http://122.225.60.230:7008/PC_API/FavoriteService.svc?WSDL"
+  }
+}
