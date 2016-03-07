@@ -90,3 +90,16 @@ CustomerIFS.prototype.getAllStreet = function (obj, callback) {
     }
   });
 };
+
+CustomerIFS.prototype.getBuyReport = function (obj, callback) {
+  var Customer = this.DS.models.Customer;
+  var xml = customerObj.getBuyReportXML(obj);
+  Customer.GetCustomerBuyHisStatics(xml, function (err, response) {
+    try {
+      callback(err, JSON.parse(response.GetCustomerBuyHisStaticsResult));
+    } catch (e) {
+      console.error('CustomerIFS getBuyReport Exception: ' + e);
+      callback(err, {IsSuccess: false, ErrorInfo:'服务异常'});
+    }
+  });
+};

@@ -126,3 +126,26 @@ exports.getAllStreetXML = function (obj) {
 
   return xml(xmlObj, true);
 };
+
+exports.getBuyReportXML = function (obj) {
+  var xmlObj = [{
+    GetCustomerBuyHisStatics: [
+      {
+        _attr: {
+          xmlns: 'http://tempuri.org/'
+        }
+      },
+      {
+        customerSysNo: obj.userId
+      },
+      {
+        startDate: obj.start
+      },
+      {
+        endDate: obj.end
+      }
+    ]
+  }];
+
+  return xml(xmlObj, true);
+};
