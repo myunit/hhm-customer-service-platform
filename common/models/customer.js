@@ -162,5 +162,45 @@ module.exports = function(Customer) {
       }
     );
 
+    //获取采购报表
+    Customer.getBuyReport = function (data, cb) {
+      if (!data.userId) {
+        cb(null, {status: 0, msg: '参数错误'});
+        return;
+      }
+
+      customerIFS.getBuyReport(data, function (err, res) {
+        if (err) {
+          console.error('getBuyReport err: ' + err);
+          cb(null, {status: 0, msg: '操作异常'});
+          return;
+        }
+
+        if (!res.IsSuccess) {
+          console.error('getBuyReport result err: ' + res.ErrorInfo);
+          cb(null, {status: 0, msg: res.ErrorInfo});
+        } else {
+          cb(null, {status: 1, report: JSON.parse(res.ResultStr), msg: ''});
+        }
+      });
+    };
+
+    Customer.remoteMethod(
+      'getBuyReport',
+      {
+        description: ['获取采购报表.返回结果-status:操作结果 0 成功 -1 失败, report:报表信息, msg:附带信息'],
+        accepts: [
+          {
+            arg: 'data', type: 'object', required: true, http: {source: 'body'},
+            description: [
+              '获取采购报表 {"userId":int, "start":"string", "end":"string"}'
+            ]
+          }
+        ],
+        returns: {arg: 'repData', type: 'string'},
+        http: {path: '/get-buy-report', verb: 'post'}
+      }
+    );
+
   });
 };
