@@ -45,7 +45,7 @@ module.exports = function(Customer) {
 
               if (!res.IsSuccess) {
                 console.error('addReceiver result err: ' + res.ErrorDescription);
-                cb({status:0, msg: '操作失败'});
+                cb({status:0, msg: res.ErrorDescription});
               } else {
                 cb(null, {status: 1, msg: '操作成功'});
               }
