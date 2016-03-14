@@ -1,0 +1,36 @@
+{
+  "hhm":{
+    "banner":[
+      {
+        "img": "",
+        "url": "",
+        "type": 5
+      },
+      {
+        "img": "",
+        "url": "",
+        "type": 1
+      }
+    ],
+    "new": {
+      "img": "",
+      "url": "",
+      "type": 2
+    },
+    "sales": {
+      "img": "",
+      "url": "",
+      "type": 3
+    },
+    "group": {
+      "img": "",
+      "url": "",
+      "type": 1
+    },
+    "secKill": {
+      "img": "",
+      "url": "",
+      "type": 0
+    }
+  }
+}
