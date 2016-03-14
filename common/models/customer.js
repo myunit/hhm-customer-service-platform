@@ -2,6 +2,7 @@ var loopback = require('loopback');
 var async = require('async');
 var CustomerIFS = require('../../server/cloud-soap-interface/customer-ifs');
 var ReceiverIFS = require('../../server/cloud-soap-interface/receiver-ifs');
+var homeConfig = require('../../server/home-config');
 
 module.exports = function(Customer) {
   Customer.getApp(function (err, app) {
@@ -45,7 +46,7 @@ module.exports = function(Customer) {
 
               if (!res.IsSuccess) {
                 console.error('addReceiver result err: ' + res.ErrorDescription);
-                cb({status:0, msg: '操作失败'});
+                cb({status:0, msg: res.ErrorDescription});
               } else {
                 cb(null, {status: 1, msg: '操作成功'});
               }
@@ -199,6 +200,40 @@ module.exports = function(Customer) {
         ],
         returns: {arg: 'repData', type: 'string'},
         http: {path: '/get-buy-report', verb: 'post'}
+      }
+    );
+
+    //获取首页配置信息
+    Customer.getHomeConfig = function (data, cb) {
+      if (!data.project) {
+        cb(null, {status: 0, msg: '参数错误'});
+        return;
+      }
+
+      var home = homeConfig[data.project];
+      if (home === undefined) {
+        cb(null, {status: 0, msg: '配置不存在'});
+      } else {
+        cb(null, {status: 0, home: home, msg: ''});
+      }
+
+    };
+
+    Customer.remoteMethod(
+      'getHomeConfig',
+      {
+        description: ['获取采购报表.返回结果-status:操作结果 0 成功 -1 失败, report:报表信息, msg:附带信息'],
+        accepts: [
+          {
+            arg: 'data', type: 'object', required: true, http: {source: 'body'},
+            description: [
+              '获取采购报表 {"project":"string"}',
+              'project:项目名, 好好卖是hhm'
+            ]
+          }
+        ],
+        returns: {arg: 'repData', type: 'string'},
+        http: {path: '/get-home-config', verb: 'post'}
       }
     );
 
