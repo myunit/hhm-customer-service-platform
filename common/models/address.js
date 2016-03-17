@@ -26,7 +26,19 @@ module.exports = function (Address) {
           console.error('getReceiver result err: ' + res.ErrorDescription);
           cb(null, {status: 0, msg: res.ErrorDescription});
         } else {
-          cb(null, {status: 1, receiver: res.Datas, msg: ''});
+          if (data.receiverId) {
+            var receivers = res.Datas;
+            var len = receivers.length;
+            for (var i = 0; i < len; i++) {
+              if (receivers[i].SysNo === data.receiverId) {
+                cb(null, {status: 1, receiver: receivers[i], msg: ''});
+                return;
+              }
+            }
+            cb(null, {status: 0, msg: '地址不存在'});
+          } else {
+            cb(null, {status: 1, receiver: res.Datas, msg: ''});
+          }
         }
       });
     };
@@ -41,7 +53,8 @@ module.exports = function (Address) {
           {
             arg: 'data', type: 'object', required: true, http: {source: 'body'},
             description: [
-              '获取用户收货地址 {"userId":int}'
+              '获取用户收货地址 {"userId":int, "receiverId":int}',
+              'receiverId:可选参数,当不传该参数时返回所有收货信息'
             ]
           }
         ],
