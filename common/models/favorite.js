@@ -100,7 +100,24 @@ module.exports = function (Favorite) {
           console.error('getMyFavorite result err: ' + res.ErrorDescription);
           cb(null, {status: 0, msg: res.ErrorDescription});
         } else {
-          cb(null, {status: 1, favorite: res.Datas, msg: ''});
+          var favorite = res.Datas;
+          favorite.forEach(function (item, index) {
+            if (item.SkuList.length > 1) {
+              var max = item.SkuList[0].Price, min = max;
+              item.SkuList.forEach(function (sItem, sIndex) {
+                if (sItem.Price > max) {
+                  max = sItem.Price;
+                }
+
+                if (sItem.Price < min) {
+                  min = sItem.Price;
+                }
+              });
+              item.MaxPrice = max;
+              item.MinPrice = min;
+            }
+          });
+          cb(null, {status: 1, count: res.Counts, favorite: favorite, msg: ''});
         }
       });
     };
