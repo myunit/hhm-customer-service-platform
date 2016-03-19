@@ -116,6 +116,7 @@ module.exports = function (Favorite) {
               item.MaxPrice = max;
               item.MinPrice = min;
             }
+            item.isLike = true;
           });
           cb(null, {status: 1, count: res.Counts, favorite: favorite, msg: ''});
         }
