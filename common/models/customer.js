@@ -223,7 +223,30 @@ module.exports = function(Customer) {
           console.error('getNoticeMessage result err: ' + res.ErrorInfo);
           cb(null, {status: 0, msg: res.ErrorInfo});
         } else {
+          var now = new Date();
+          var m = now.getMonth() + 1;
+          if (m < 10) {
+            m = '0' + m;
+          }
+          now = (new Date(now.getFullYear()+'-'+m+'-'+now.getDate())).getTime();
+
           var notice = JSON.parse(res.ResultStr);
+          var item = null;
+          var inDate = null;
+          var time = 0, dif = 0;
+          for (var i = 0; i < notice.rows.length; i++) {
+            item = notice.rows[i];
+            inDate = item.InDate.split(' ');
+            time = (new Date(inDate[0])).getTime();
+            dif = parseInt((now - time) / (1000 * 60 * 60 * 24));
+            if (dif === 0) {
+              inDate[0] = '今天';
+              item.InDate = inDate.join(' ');
+            } else if (dif === 1) {
+              inDate[0] = '昨天';
+              item.InDate = inDate.join(' ');
+            }
+          }
           cb(null, {status: 1, count: notice.total, notice:notice.rows, msg: ''});
         }
       });
