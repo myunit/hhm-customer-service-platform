@@ -247,5 +247,45 @@ module.exports = function(Customer) {
       }
     );
 
+    //设置消息状态
+    Customer.setNoticeStatus = function (data, cb) {
+      if (!data.userId) {
+        cb(null, {status: 0, msg: '参数错误'});
+        return;
+      }
+
+      shoppingIFS.setNoticeStatus(data, function (err, res) {
+        if (err) {
+          console.error('setNoticeStatus err: ' + err);
+          cb(null, {status: 0, msg: '操作异常'});
+          return;
+        }
+
+        if (!res) {
+          cb(null, {status: 0, msg: ''});
+        } else {
+          cb(null, {status: 1, msg: ''});
+        }
+      });
+    };
+
+    Customer.remoteMethod(
+      'setNoticeStatus',
+      {
+        description: ['设置消息状态.返回结果-status:操作结果 0 成功 -1 失败, msg:附带信息'],
+        accepts: [
+          {
+            arg: 'data', type: 'object', required: true, http: {source: 'body'},
+            description: [
+              '设置消息状态 {"userId":int, "isRead":int, "pageId":int, "pageSize":int}',
+              'isRead:消息状态, 0全部, 1未读, 2已读'
+            ]
+          }
+        ],
+        returns: {arg: 'repData', type: 'string'},
+        http: {path: '/set-notice-status', verb: 'post'}
+      }
+    );
+
   });
 };
