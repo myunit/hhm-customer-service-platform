@@ -223,7 +223,8 @@ module.exports = function(Customer) {
           console.error('getNoticeMessage result err: ' + res.ErrorInfo);
           cb(null, {status: 0, msg: res.ErrorInfo});
         } else {
-          cb(null, {status: 1, count: res.ResultStr.total, notice:res.ResultStr.rows, msg: ''});
+          var notice = JSON.parse(res.ResultStr);
+          cb(null, {status: 1, count: notice.total, notice:notice.rows, msg: ''});
         }
       });
     };
