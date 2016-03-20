@@ -48,6 +48,13 @@
       "principalId": "$authenticated",
       "permission": "ALLOW",
       "property": "getNoticeMessage"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "setNoticeStatus"
     }
   ],
   "methods": {}

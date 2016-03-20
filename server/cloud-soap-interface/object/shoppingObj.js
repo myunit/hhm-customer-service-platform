@@ -30,3 +30,26 @@ exports.getNoticeMessageXML = function (obj) {
 
   return xml(xmlObj, true);
 };
+
+exports.setNoticeStatusXML = function (obj) {
+  var xmlObj = [{
+    CustomerReadNotice: [
+      {
+        _attr: {
+          xmlns: 'http://tempuri.org/'
+        }
+      },
+      {
+        customerNo: obj.userId
+      },
+      {
+        IsRead: obj.isRead
+      },
+      {
+        NoticeSysno: obj.noticeId
+      }
+    ]
+  }];
+
+  return xml(xmlObj, true);
+};

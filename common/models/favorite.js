@@ -142,5 +142,60 @@ module.exports = function (Favorite) {
       }
     );
 
+    //判断商品是否收藏
+    /*Favorite.isMyFavorite = function (data, cb) {
+      productIFS.getMyFavorite(data, function (err, res) {
+        if (err) {
+          console.log('getMyFavorite err: ' + err);
+          cb(null, {status: 0, msg: '操作异常'});
+          return;
+        }
+
+        if (!res.IsSuccess) {
+          console.error('getMyFavorite result err: ' + res.ErrorDescription);
+          cb(null, {status: 0, msg: res.ErrorDescription});
+        } else {
+          var favorite = res.Datas;
+          favorite.forEach(function (item, index) {
+            if (item.SkuList.length > 1) {
+              var max = item.SkuList[0].Price, min = max;
+              item.SkuList.forEach(function (sItem, sIndex) {
+                if (sItem.Price > max) {
+                  max = sItem.Price;
+                }
+
+                if (sItem.Price < min) {
+                  min = sItem.Price;
+                }
+              });
+              item.MaxPrice = max;
+              item.MinPrice = min;
+            }
+            item.isLike = true;
+          });
+          cb(null, {status: 1, count: res.Counts, favorite: favorite, msg: ''});
+        }
+      });
+    };
+
+    Favorite.remoteMethod(
+      'isMyFavorite',
+      {
+        description: [
+          '判断商品是否收藏.返回结果-status:操作结果 0 失败 1 成功, isFavorite:是否收藏, msg:附带信息'
+        ],
+        accepts: [
+          {
+            arg: 'data', type: 'object', required: true, http: {source: 'body'},
+            description: [
+              '判断商品是否收藏 {"userId":int, "productId":int}'
+            ]
+          }
+        ],
+        returns: {arg: 'repData', type: 'string'},
+        http: {path: '/get-is-favorite', verb: 'post'}
+      }
+    );*/
+
   });
 };
