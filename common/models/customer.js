@@ -2,6 +2,7 @@ var loopback = require('loopback');
 var async = require('async');
 var CustomerIFS = require('../../server/cloud-soap-interface/customer-ifs');
 var ReceiverIFS = require('../../server/cloud-soap-interface/receiver-ifs');
+var ShoppingIFS = require('../../server/cloud-soap-interface/shopping-ifs');
 var homeConfig = require('../../server/home-config');
 
 module.exports = function(Customer) {
@@ -12,6 +13,7 @@ module.exports = function(Customer) {
     var app_self = app;
     var customerIFS = new CustomerIFS(app);
     var receiverIFS = new ReceiverIFS(app);
+    var shoppingIFS = new ShoppingIFS(app);
 
     //完善用户信息
     Customer.perfectCustomerInfo = function (data, perfectCb) {
@@ -234,6 +236,47 @@ module.exports = function(Customer) {
         ],
         returns: {arg: 'repData', type: 'string'},
         http: {path: '/get-home-config', verb: 'post'}
+      }
+    );
+
+    //获取用户消息通知
+    Customer.getNoticeMessage = function (data, cb) {
+      if (!data.userId) {
+        cb(null, {status: 0, msg: '参数错误'});
+        return;
+      }
+
+      shoppingIFS.getNoticeMessage(data, function (err, res) {
+        if (err) {
+          console.error('getNoticeMessage err: ' + err);
+          cb(null, {status: 0, msg: '操作异常'});
+          return;
+        }
+
+        if (!res.IsSuccess) {
+          console.error('getNoticeMessage result err: ' + res.ErrorInfo);
+          cb(null, {status: 0, msg: res.ErrorInfo});
+        } else {
+          cb(null, {status: 1, count: res.ResultStr.total, notice:res.ResultStr.rows, msg: ''});
+        }
+      });
+    };
+
+    Customer.remoteMethod(
+      'getNoticeMessage',
+      {
+        description: ['获取用户消息通知.返回结果-status:操作结果 0 成功 -1 失败, notice:消息, msg:附带信息'],
+        accepts: [
+          {
+            arg: 'data', type: 'object', required: true, http: {source: 'body'},
+            description: [
+              '获取用户消息通知 {"userId":int, "isRead":int, "pageId":int, "pageSize":int}',
+              'isRead:消息状态, 0全部, 1未读, 2已读'
+            ]
+          }
+        ],
+        returns: {arg: 'repData', type: 'string'},
+        http: {path: '/get-notice-message', verb: 'post'}
       }
     );
 
