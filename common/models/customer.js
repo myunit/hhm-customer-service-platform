@@ -205,40 +205,6 @@ module.exports = function(Customer) {
       }
     );
 
-    //获取首页配置信息
-    Customer.getHomeConfig = function (data, cb) {
-      if (!data.project) {
-        cb(null, {status: 0, msg: '参数错误'});
-        return;
-      }
-
-      var home = homeConfig[data.project];
-      if (home === undefined) {
-        cb(null, {status: 0, msg: '配置不存在'});
-      } else {
-        cb(null, {status: 0, home: home, msg: ''});
-      }
-
-    };
-
-    Customer.remoteMethod(
-      'getHomeConfig',
-      {
-        description: ['获取采购报表.返回结果-status:操作结果 0 成功 -1 失败, report:报表信息, msg:附带信息'],
-        accepts: [
-          {
-            arg: 'data', type: 'object', required: true, http: {source: 'body'},
-            description: [
-              '获取采购报表 {"project":"string"}',
-              'project:项目名, 好好卖是hhm'
-            ]
-          }
-        ],
-        returns: {arg: 'repData', type: 'string'},
-        http: {path: '/get-home-config', verb: 'post'}
-      }
-    );
-
     //获取用户消息通知
     Customer.getNoticeMessage = function (data, cb) {
       if (!data.userId) {
