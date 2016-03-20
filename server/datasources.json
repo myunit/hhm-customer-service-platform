@@ -33,5 +33,11 @@
     "name": "FavoriteSoap",
     "connector": "soap",
     "wsdl": "http://122.225.60.230:7008/PC_API/FavoriteService.svc?WSDL"
+  },
+  "ShoppingSoap": {
+    "url": "http://122.225.60.230:7008/PC_API/ShoppingService.svc",
+    "name": "ShoppingSoap",
+    "connector": "soap",
+    "wsdl": "http://122.225.60.230:7008/PC_API/ShoppingService.svc?WSDL"
   }
 }
