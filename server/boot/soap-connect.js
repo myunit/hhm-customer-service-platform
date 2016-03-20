@@ -23,4 +23,9 @@ module.exports = function (app) {
     console.log('Favorite interface is connected');
     app.datasources.FavoriteSoap.createModel('Favorite', {});
   });
+
+  app.datasources.ShoppingSoap.once('connected', function () {
+    console.log('Shopping interface is connected');
+    app.datasources.ShoppingSoap.createModel('Shopping', {});
+  });
 };

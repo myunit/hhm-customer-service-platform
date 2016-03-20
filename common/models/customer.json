@@ -47,7 +47,7 @@
       "principalType": "ROLE",
       "principalId": "$authenticated",
       "permission": "ALLOW",
-      "property": "getHomeConfig"
+      "property": "getNoticeMessage"
     }
   ],
   "methods": {}
