@@ -277,13 +277,54 @@ module.exports = function(Customer) {
           {
             arg: 'data', type: 'object', required: true, http: {source: 'body'},
             description: [
-              '设置消息状态 {"userId":int, "isRead":int, "pageId":int, "pageSize":int}',
-              'isRead:消息状态, 0全部, 1未读, 2已读'
+              '设置消息状态 {"userId":int, "isRead":boolean, "pageId":int, "pageSize":int}',
+              'isRead:消息状态, true已读, false未读'
             ]
           }
         ],
         returns: {arg: 'repData', type: 'string'},
         http: {path: '/set-notice-status', verb: 'post'}
+      }
+    );
+
+    //获取用户未读消息总数
+    Customer.getUnreadNoticeCount = function (data, cb) {
+      if (!data.userId) {
+        cb(null, {status: 0, msg: '参数错误'});
+        return;
+      }
+
+      shoppingIFS.getNoticeMessage({"userId":data.userId, "isRead":1, "pageId":0, "pageSize":1}, function (err, res) {
+        if (err) {
+          console.error('getUnreadNoticeCount err: ' + err);
+          cb(null, {status: 0, msg: '操作异常'});
+          return;
+        }
+
+        if (!res.IsSuccess) {
+          console.error('getUnreadNoticeCount result err: ' + res.ErrorInfo);
+          cb(null, {status: 0, msg: res.ErrorInfo});
+        } else {
+          var notice = JSON.parse(res.ResultStr);
+          cb(null, {status: 1, count: notice.total, msg: ''});
+        }
+      });
+    };
+
+    Customer.remoteMethod(
+      'getUnreadNoticeCount',
+      {
+        description: ['获取用户未读消息总数.返回结果-status:操作结果 0 成功 -1 失败, count:数量, msg:附带信息'],
+        accepts: [
+          {
+            arg: 'data', type: 'object', required: true, http: {source: 'body'},
+            description: [
+              '获取用户未读消息总数 {"userId":int}'
+            ]
+          }
+        ],
+        returns: {arg: 'repData', type: 'string'},
+        http: {path: '/get-unread-notice-count', verb: 'post'}
       }
     );
 
