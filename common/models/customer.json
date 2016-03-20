@@ -55,6 +55,13 @@
       "principalId": "$authenticated",
       "permission": "ALLOW",
       "property": "setNoticeStatus"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "getUnreadNoticeCount"
     }
   ],
   "methods": {}
