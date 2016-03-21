@@ -261,7 +261,7 @@ module.exports = function(Customer) {
             arg: 'data', type: 'object', required: true, http: {source: 'body'},
             description: [
               '获取用户消息通知 {"userId":int, "isRead":int, "pageId":int, "pageSize":int}',
-              'isRead:消息状态, 0全部, 1未读, 2已读'
+              'isRead:消息状态, 0全部, 1已读, 2未读'
             ]
           }
         ],
@@ -317,7 +317,7 @@ module.exports = function(Customer) {
         return;
       }
 
-      shoppingIFS.getNoticeMessage({"userId":data.userId, "isRead":1, "pageId":0, "pageSize":1}, function (err, res) {
+      shoppingIFS.getNoticeMessage({"userId":data.userId, "isRead":2, "pageId":0, "pageSize":1}, function (err, res) {
         if (err) {
           console.error('getUnreadNoticeCount err: ' + err);
           cb(null, {status: 0, msg: '操作异常'});
