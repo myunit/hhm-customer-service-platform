@@ -300,7 +300,7 @@ module.exports = function(Customer) {
           {
             arg: 'data', type: 'object', required: true, http: {source: 'body'},
             description: [
-              '设置消息状态 {"userId":int, "isRead":boolean, "pageId":int, "pageSize":int}',
+              '设置消息状态 {"userId":int, "isRead":boolean, "noticeId":int}',
               'isRead:消息状态, true已读, false未读'
             ]
           }
