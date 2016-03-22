@@ -351,5 +351,85 @@ module.exports = function(Customer) {
       }
     );
 
+    //获取用户信息
+    Customer.getUserInfo = function (data, cb) {
+      if (!data.userId) {
+        cb(null, {status: 0, msg: '参数错误'});
+        return;
+      }
+
+      customerIFS.getUserInfo(data, function (err, res) {
+        if (err) {
+          console.error('getUserInfo err: ' + err);
+          cb(null, {status: 0, msg: '操作异常'});
+          return;
+        }
+
+        if (!res.IsSuccess) {
+          console.error('getUserInfo result err: ' + res.ErrorDescription);
+          cb(null, {status: 0, msg: res.ErrorDescription});
+        } else {
+          cb(null, {status: 1, user: res.Customer, msg: ''});
+        }
+      });
+    };
+
+    Customer.remoteMethod(
+      'getUserInfo',
+      {
+        description: ['获取用户信息.返回结果-status:操作结果 0 成功 -1 失败, user:用户信息, msg:附带信息'],
+        accepts: [
+          {
+            arg: 'data', type: 'object', required: true, http: {source: 'body'},
+            description: [
+              '获取用户信息 {"userId":int}'
+            ]
+          }
+        ],
+        returns: {arg: 'repData', type: 'string'},
+        http: {path: '/get-user-info', verb: 'post'}
+      }
+    );
+
+    //设置用户头像
+    Customer.setHeadPicture = function (data, cb) {
+      if (!data.userId) {
+        cb(null, {status: 0, msg: '参数错误'});
+        return;
+      }
+
+      customerIFS.setHeadPicture(data, function (err, res) {
+        if (err) {
+          console.error('setHeadPicture err: ' + err);
+          cb(null, {status: 0, msg: '操作异常'});
+          return;
+        }
+
+        if (!res.IsSuccess) {
+          console.error('setHeadPicture result err: ' + res.ErrorInfo);
+          cb(null, {status: 0, msg: res.ErrorInfo});
+        } else {
+          cb(null, {status: 1, msg: '设置成功'});
+        }
+      });
+    };
+
+    Customer.remoteMethod(
+      'setHeadPicture',
+      {
+        description: ['设置用户头像.返回结果-status:操作结果 0 成功 -1 失败, user:用户信息, msg:附带信息'],
+        accepts: [
+          {
+            arg: 'data', type: 'object', required: true, http: {source: 'body'},
+            description: [
+              '设置用户头像 {"userId":int, "img":"string"}'
+            ]
+          }
+        ],
+        returns: {arg: 'repData', type: 'string'},
+        http: {path: '/set-head-picture', verb: 'post'}
+      }
+    );
+
   });
 };
