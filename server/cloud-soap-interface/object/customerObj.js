@@ -149,3 +149,45 @@ exports.getBuyReportXML = function (obj) {
 
   return xml(xmlObj, true);
 };
+
+exports.setHeadPictureXML = function (obj) {
+  var info = {
+    HeadPicture: obj.img,
+    Gender: 1
+  };
+
+  var xmlObj = [{
+    SaveCustomerBasic: [
+      {
+        _attr: {
+          xmlns: 'http://tempuri.org/'
+        }
+      },
+      {
+        customerSysNo: obj.userId
+      },
+      {
+        basicJson: JSON.stringify(info)
+      }
+    ]
+  }];
+
+  return xml(xmlObj, true);
+};
+
+exports.getUserInfoXML = function (obj) {
+  var xmlObj = [{
+    GetUserById: [
+      {
+        _attr: {
+          xmlns: 'http://tempuri.org/'
+        }
+      },
+      {
+        uId: obj.userId
+      }
+    ]
+  }];
+
+  return xml(xmlObj, true);
+};

@@ -103,3 +103,29 @@ CustomerIFS.prototype.getBuyReport = function (obj, callback) {
     }
   });
 };
+
+CustomerIFS.prototype.setHeadPicture = function (obj, callback) {
+  var Customer = this.DS.models.Customer;
+  var xml = customerObj.setHeadPictureXML(obj);
+  Customer.SaveCustomerBasic(xml, function (err, response) {
+    try {
+      callback(err, JSON.parse(response.SaveCustomerBasicResult));
+    } catch (e) {
+      console.error('CustomerIFS setHeadPicture Exception: ' + e);
+      callback(err, {IsSuccess: false, ErrorInfo:'服务异常'});
+    }
+  });
+};
+
+CustomerIFS.prototype.getUserInfo = function (obj, callback) {
+  var Customer = this.DS.models.Customer;
+  var xml = customerObj.getUserInfoXML(obj);
+  Customer.GetUserById(xml, function (err, response) {
+    try {
+      callback(err, JSON.parse(response.GetUserByIdResult));
+    } catch (e) {
+      console.error('CustomerIFS getUserInfo Exception: ' + e);
+      callback(err, {IsSuccess: false, ErrorInfo:'服务异常'});
+    }
+  });
+};
