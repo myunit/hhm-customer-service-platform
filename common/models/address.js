@@ -165,7 +165,7 @@ module.exports = function (Address) {
             description: [
               '地址信息(JSON string) {"userId":int, "name":"string", "phone":"string", ',
               '"provinceId":int, "province":"string", "cityId":int, "city":"string", "districtId":int, ',
-              '"district":"string", "address":"string", "isDefault":boolean}'
+              '"district":"string", "street":"string", "streetId":int, "address":"string", "isDefault":boolean}'
             ]
           }
         ],
@@ -201,7 +201,7 @@ module.exports = function (Address) {
             description: [
               '地址信息(JSON string) {"userId":int, "receiverId":int, "name":"string", "phone":"string", ',
               '"provinceId":int, "province":"string", "cityId":int, "city":"string", "districtId":int, ',
-              '"district":"string", "address":"string", "isDefault":boolean}'
+              '"district":"string", "street":"string", "streetId":int, "address":"string", "isDefault":boolean}'
             ]
           }
         ],

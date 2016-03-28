@@ -20,6 +20,8 @@ exports.addReceiverXML = function (obj) {
   address.province = obj.province;
   address.city = obj.city;
   address.district = obj.district;
+  address.street = obj.street;
+  address.streetId = obj.streetId;
   var xmlObj = [{
     ReceiverForInsertAndModify: [
       {
@@ -51,6 +53,8 @@ exports.modifyReceiverXML = function (obj) {
   address.province = obj.province;
   address.city = obj.city;
   address.district = obj.district;
+  address.street = obj.street;
+  address.streetId = obj.streetId;
   var xmlObj = [{
     ReceiverForInsertAndModify: [
       {
