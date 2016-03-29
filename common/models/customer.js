@@ -75,7 +75,7 @@ module.exports = function(Customer) {
             description: [
               '完善用户信息 {"userId":int, "storeName":"string", "receiver":{"name":"string", "phone":"string", ',
               '"provinceId":int, "province":"string", "cityId":int, "city":"string", "districtId":int, "district":"string", ',
-              '"address":"string"}}, ',
+              '"street":"string", "streetId":int, "address":"string"}}, ',
               'userId:用户编号, storeName:店铺名字, receiver:收货地址'
             ]
           }
