@@ -237,6 +237,12 @@ module.exports = function(Customer) {
           for (var i = 0; i < notice.rows.length; i++) {
             item = notice.rows[i];
             inDate = item.InDate.split(' ');
+
+            var timeStr = inDate[1];
+            timeStr = timeStr.split(':');
+            timeStr.splice(-1, 1);
+            inDate[1] = timeStr.join(':');
+
             time = (new Date(inDate[0])).getTime();
             dif = parseInt((now - time) / (1000 * 60 * 60 * 24));
             if (dif === 0) {
@@ -244,6 +250,12 @@ module.exports = function(Customer) {
               item.InDate = inDate.join(' ');
             } else if (dif === 1) {
               inDate[0] = '昨天';
+              item.InDate = inDate.join(' ');
+            } else {
+              var date = inDate[0];
+              date = date.split('-');
+              date.splice(0, 1);
+              inDate[0] = date.join('-');
               item.InDate = inDate.join(' ');
             }
           }
