@@ -228,7 +228,11 @@ module.exports = function(Customer) {
           if (m < 10) {
             m = '0' + m;
           }
-          now = (new Date(now.getFullYear()+'-'+m+'-'+now.getDate())).getTime();
+          var d = now.getDate();
+          if (d < 10) {
+            d = '0' + d;
+          }
+          now = (new Date(now.getFullYear()+'-'+m+'-'+d)).getTime();
 
           var notice = JSON.parse(res.ResultStr);
           var item = null;
