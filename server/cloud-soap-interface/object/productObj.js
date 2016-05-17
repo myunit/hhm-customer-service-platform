@@ -21,6 +21,9 @@ exports.getMyFavoriteXML = function (obj) {
       },
       {
         pageSize: obj.pageSize
+      },
+      {
+        PCDCode: obj.pcdCode
       }
     ]
   }];

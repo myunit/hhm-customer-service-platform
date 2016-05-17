@@ -133,7 +133,7 @@ module.exports = function (Favorite) {
           {
             arg: 'data', type: 'object', required: true, http: {source: 'body'},
             description: [
-              '我的收藏 {"userId":int, "pageId":int, "pageSize":int}'
+              '我的收藏 {"userId":int, "pageId":int, "pageSize":int, "pcdCode": "string"}'
             ]
           }
         ],
